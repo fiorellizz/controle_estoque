@@ -17,6 +17,23 @@ typedef struct{
 
 } Usuario;
 
+void abertura(){
+
+    printf("BEM VINDO AO PAINEL DE CONTROLE DE ESTOQUE!\n");
+    printf("Para ter acesso ao painel ENTRE na sua conta ou CRIE uma!\n\n");
+}
+
+void painel(){
+
+    printf("[1] Cadastrar");
+    printf("\n[2] Listar");
+    printf("\n[3] Buscar");
+    printf("\n[4] Alterar");
+    printf("\n[5] Excluir");
+    printf("\n[0] Sair");
+    printf("\nDigite a opção escolhida: ");
+}
+
 void cadastrar(Produto a[], int indice){
     
     a[indice].id = 1;
@@ -60,10 +77,10 @@ void listarTodos(Produto a[], int indice){
 }
 
 void listarProdutos(Produto a[], int indice){
+    
     int escolha;
-
     if (indice == 0){
-        printf("\nNenhum registro encontrado!");
+        printf("Nenhum registro encontrado!\n");
     } else {
         printf("1 - Ativados \n2 - Desativados \n3 - Todos \n");
         fflush(stdin);
@@ -104,6 +121,7 @@ void listarProdutos(Produto a[], int indice){
 }
 
 void buscar(Produto a[], int indice, int idbusca){
+    
     int encontrado = 0;
     for (int i = 0; i < indice; i++){
         if (idbusca == a[i].id){
@@ -121,7 +139,8 @@ void buscar(Produto a[], int indice, int idbusca){
 }
 
 void alterar(Produto a[], int indice, int idbusca){
-    int mudar;
+    
+    int escolha;
     for (int i = 0; i < indice; i++){
         if (idbusca == a[i].id){
             printf("Id: %d", a[i].id);
@@ -138,26 +157,26 @@ void alterar(Produto a[], int indice, int idbusca){
             fflush(stdin);
             printf("Digite a opção desejada: ");
             fflush(stdin);
-            scanf("%d", &mudar);
+            scanf("%d", &escolha);
             fflush(stdin);
-            if (mudar == 1){
+            if (escolha == 1){
                 printf("Digite o novo nome: ");
                 fgets(a[i].nome, sizeof(a[i].nome), stdin);
                 a[indice].nome[strcspn(a[indice].nome, "\n")] = '\0';
                 fflush(stdin);
-            } else if (mudar == 2){
+            } else if (escolha == 2){
                 printf("Digite a nova quantidade:");
                 scanf("%d", &a[i].quantidade);
                 fflush(stdin);
-            } else if (mudar == 3){
+            } else if (escolha == 3){
                 printf("Digite o novo status (0 ou 1): ");
                 scanf("%d", &a[i].status);
                 fflush(stdin);
-            } else if (mudar == 4){
+            } else if (escolha == 4){
                 printf("Digite o novo lote: ");
                 scanf("%d", &a[i].lote);
                 fflush(stdin);
-            } else if (mudar == 5){
+            } else if (escolha == 5){
                 printf("Digite o novo nome: ");
                 fgets(a[i].nome, sizeof(a[i].nome), stdin);
                 a[indice].nome[strcspn(a[indice].nome, "\n")] = '\0';
@@ -223,16 +242,15 @@ int main()
 {
     Produto a[MAX];
     Usuario b[MAX];
-    int count = 0, mudar, idbusca, login = 0, count2 = 0, conta;
+    int count = 0, escolha, idbusca, login = 0, count2 = 0, conta;
     char excluiDados, alterarDados;
 
-    printf("BEM VINDO AO PAINEL DE CONTROLE DE ESTOQUE!\n");
-    printf("Para ter acesso ao painel ENTRE na sua conta ou CRIE uma!\n\n");
+    abertura();
 
     do{
-        printf("[1] Entrar");
-        printf("\n[2] Criar");
-        printf("\nDigite a opção escolhida: ");
+        printf("[1] Entrar\n");
+        printf("[2] Criar\n");
+        printf("Digite a opção escolhida: ");
         fflush(stdin);
         scanf("%d", &conta);
         system("cls");
@@ -251,7 +269,6 @@ int main()
         else if (conta == 2){
             if (count2 < MAX){
                 criarConta(b, &count2);
-                count2++;
                 printf("Conta criada com sucesso!\n");
                 printf("Digite qualquer tecla para voltar ao menu...");
                 getch();
@@ -267,17 +284,11 @@ int main()
     } while (login == 0);
 
     do{
-        printf("[1] Cadastrar");
-        printf("\n[2] Listar");
-        printf("\n[3] Buscar");
-        printf("\n[4] Alterar");
-        printf("\n[5] Excluir");
-        printf("\n[0] Sair");
-        printf("\nDigite a opção escolhida: ");
-        scanf("%d", &mudar);
+        painel();
+        scanf("%d", &escolha);
         system("cls");
 
-        switch (mudar){
+        switch (escolha){
         case 1:
             if (count < MAX){
                 cadastrar(a, count);
@@ -351,7 +362,7 @@ int main()
             break;
         }
         
-    } while (mudar != 0);
+    } while (escolha != 0);
 
     return 0;
 }
