@@ -6,6 +6,134 @@
 
 Produto a[MAX];
 
+int main()
+{
+    
+    Usuario b[MAX];
+    int count = 0, escolha, idbusca, login = 0, count2 = 0, conta;
+    char excluiDados, alterarDados;
+
+    abertura();
+
+    do{
+        printf("[1] Entrar\n");
+        printf("[2] Criar\n");
+        printf("Digite a opção escolhida: ");
+        fflush(stdin);
+        scanf("%d", &conta);
+        system("cls");
+
+        if (conta == 1){
+            entrarConta(b, count2, &login);
+            if (login == 0){
+                printf("Dados inválidos!\nFavor inserir novamente!\n");
+                printf("Digite qualquer tecla para voltar ao menu...");
+                getch();
+                system("cls");
+            } else {
+                system("cls");
+            }
+        }
+        else if (conta == 2){
+            if (count2 < MAX){
+                criarConta(b, &count2);
+                printf("Conta criada com sucesso!\n");
+                printf("Digite qualquer tecla para voltar ao menu...");
+                getch();
+                system("cls");
+            } else {
+                printf("Limite de contas atingidos!\n\n");
+                printf("Digite qualquer tecla para voltar ao menu...");
+                getch();
+                system("cls");
+            }
+        }
+
+    } while (login == 0);
+
+    do{
+        painel();
+        scanf("%d", &escolha);
+        system("cls");
+
+        switch (escolha){
+        case 1:
+            if (count < MAX){
+                cadastrar(&count);
+                printf("Cadastro realizado com sucesso!\n");
+                printf("Digite qualquer tecla para voltar ao menu...");
+                getch();
+                system("cls");
+            } else {
+                printf("Limite de cadastros atingidos!\n\n");
+                printf("Digite qualquer tecla para voltar ao menu...");
+                getch();
+                system("cls");
+            }
+            break;
+
+        case 2:
+            listarProdutos(count);
+            printf("Digite qualquer tecla para voltar ao menu...");
+            getch();
+            system("cls");
+            break;
+
+        case 3:
+            printf("Digite o id do produto que quer buscar: ");
+            fflush(stdin);
+            scanf("%d", &idbusca);
+            buscar(count, idbusca);
+            break;
+
+        case 4:
+            listarTodos(count);
+            printf("Digite o id que deseja alterar: ");
+            fflush(stdin);
+            scanf("%d", &idbusca);
+            printf("Deseja realmente alterar (s / n)?\n");
+            fflush(stdin);
+            scanf("%c", &alterarDados);
+            system("cls");
+            if (alterarDados == 's'){
+                alterar(count, idbusca);
+            } else {
+                printf("Alteração Cancelada!");
+            }
+            break;
+
+        case 5:
+            listarTodos(count);
+            printf("Digite o id que deseja excluir: ");
+            fflush(stdin);
+            scanf("%d", &idbusca);
+            printf("Deseja realmente excluir (s / n)?\n");
+            fflush(stdin);
+            scanf("%c", &excluiDados);
+            if (excluiDados == 's'){
+                excluir(count, idbusca);
+                count--;
+                printf("\nExcluido com sucesso!\n");
+                printf("Digite qualquer tecla para voltar ao menu...");
+                getch();
+                system("cls");
+            } else {
+                printf("\nExclusao Cancelada!\n");
+                printf("Digite qualquer tecla para voltar ao menu...");
+                getch();
+                system("cls");
+            }
+            break;
+
+        default:
+            break;
+        }
+        
+    } while (escolha != 0);
+
+    return 0;
+}
+
 void abertura(){
 
     printf("BEM VINDO AO PAINEL DE CONTROLE DE ESTOQUE!\n");
@@ -227,132 +355,4 @@ void entrarConta(Usuario b[], int totalContas, int *login){
             *login = 1;
         }
     }
-}
-
-int main()
-{
-    
-    Usuario b[MAX];
-    int count = 0, escolha, idbusca, login = 0, count2 = 0, conta;
-    char excluiDados, alterarDados;
-
-    abertura();
-
-    do{
-        printf("[1] Entrar\n");
-        printf("[2] Criar\n");
-        printf("Digite a opção escolhida: ");
-        fflush(stdin);
-        scanf("%d", &conta);
-        system("cls");
-
-        if (conta == 1){
-            entrarConta(b, count2, &login);
-            if (login == 0){
-                printf("Dados inválidos!\nFavor inserir novamente!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
-            } else {
-                system("cls");
-            }
-        }
-        else if (conta == 2){
-            if (count2 < MAX){
-                criarConta(b, &count2);
-                printf("Conta criada com sucesso!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
-            } else {
-                printf("Limite de contas atingidos!\n\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
-            }
-        }
-
-    } while (login == 0);
-
-    do{
-        painel();
-        scanf("%d", &escolha);
-        system("cls");
-
-        switch (escolha){
-        case 1:
-            if (count < MAX){
-                cadastrar(&count);
-                printf("Cadastro realizado com sucesso!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
-            } else {
-                printf("Limite de cadastros atingidos!\n\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
-            }
-            break;
-
-        case 2:
-            listarProdutos(count);
-            printf("Digite qualquer tecla para voltar ao menu...");
-            getch();
-            system("cls");
-            break;
-
-        case 3:
-            printf("Digite o id do produto que quer buscar: ");
-            fflush(stdin);
-            scanf("%d", &idbusca);
-            buscar(count, idbusca);
-            break;
-
-        case 4:
-            listarTodos(count);
-            printf("Digite o id que deseja alterar: ");
-            fflush(stdin);
-            scanf("%d", &idbusca);
-            printf("Deseja realmente alterar (s / n)?\n");
-            fflush(stdin);
-            scanf("%c", &alterarDados);
-            system("cls");
-            if (alterarDados == 's'){
-                alterar(count, idbusca);
-            } else {
-                printf("Alteração Cancelada!");
-            }
-            break;
-
-        case 5:
-            listarTodos(count);
-            printf("Digite o id que deseja excluir: ");
-            fflush(stdin);
-            scanf("%d", &idbusca);
-            printf("Deseja realmente excluir (s / n)?\n");
-            fflush(stdin);
-            scanf("%c", &excluiDados);
-            if (excluiDados == 's'){
-                excluir(count, idbusca);
-                count--;
-                printf("\nExcluido com sucesso!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
-            } else {
-                printf("\nExclusao Cancelada!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
-            }
-            break;
-
-        default:
-            break;
-        }
-        
-    } while (escolha != 0);
-
-    return 0;
 }
