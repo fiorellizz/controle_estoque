@@ -2,23 +2,26 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include "main.h"
 
 Produto a[MAX];
+Usuario b[MAX];
 
-int main()
-{
+int main(){
     
-    Usuario b[MAX];
+    setlocale(LC_ALL,"Portuguese");
+
+    //tentar criar variaveis nas funções
     int count = 0, escolha, idbusca, login = 0, count2 = 0, conta;
     char excluiDados, alterarDados;
 
     abertura();
 
-    do{
+    do{ //criar uma função para verificar se o numero digitado foi correto
         printf("[1] Entrar\n");
         printf("[2] Criar\n");
-        printf("Digite a opção escolhida: ");
+        printf("Digite sua escolha: ");
         fflush(stdin);
         scanf("%d", &conta);
         system("cls");
@@ -26,10 +29,9 @@ int main()
         if (conta == 1){
             entrarConta(b, count2, &login);
             if (login == 0){
-                printf("Dados inválidos!\nFavor inserir novamente!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
+                printf("Dados invalidos!\nFavor inserir novamente!\n");
+                printf("Clique em qualquer tecla para voltar ao menu...");
+                esperaLimpa();
             } else {
                 system("cls");
             }
@@ -38,14 +40,12 @@ int main()
             if (count2 < MAX){
                 criarConta(b, &count2);
                 printf("Conta criada com sucesso!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
+                printf("Clique em qualquer tecla para voltar ao menu...");
+                esperaLimpa();
             } else {
                 printf("Limite de contas atingidos!\n\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
+                printf("Clique em qualquer tecla para voltar ao menu...");
+                esperaLimpa();
             }
         }
 
@@ -62,21 +62,18 @@ int main()
                 cadastrar(&count);
                 printf("Cadastro realizado com sucesso!\n");
                 printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
+                esperaLimpa();
             } else {
                 printf("Limite de cadastros atingidos!\n\n");
                 printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
+                esperaLimpa();
             }
             break;
 
         case 2:
             listarProdutos(count);
             printf("Digite qualquer tecla para voltar ao menu...");
-            getch();
-            system("cls");
+            esperaLimpa();
             break;
 
         case 3:
@@ -115,13 +112,11 @@ int main()
                 count--;
                 printf("\nExcluido com sucesso!\n");
                 printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
+                esperaLimpa();
             } else {
                 printf("\nExclusao Cancelada!\n");
                 printf("Digite qualquer tecla para voltar ao menu...");
-                getch();
-                system("cls");
+                esperaLimpa();
             }
             break;
 
@@ -136,8 +131,15 @@ int main()
 
 void abertura(){
 
+    system("cls");
     printf("BEM VINDO AO PAINEL DE CONTROLE DE ESTOQUE!\n");
     printf("Para ter acesso ao painel ENTRE na sua conta ou CRIE uma!\n\n");
+}
+
+void esperaLimpa(){
+    
+    getch();
+    system("cls");
 }
 
 void painel(){
@@ -148,7 +150,7 @@ void painel(){
     printf("\n[4] Alterar");
     printf("\n[5] Excluir");
     printf("\n[0] Sair");
-    printf("\nDigite a opção escolhida: ");
+    printf("\nDigite sua escolha: ");
 }
 
 void cadastrar(int *indice){
@@ -195,18 +197,19 @@ void listarTodos(int indice){
     }
 }
 
-void listarProdutos(int indice){
-    
+void listarProdutos(int indice){ //quando listar apenas ativados ou desativados e não tiver produtos no estoque não aparece nada falando que não tem produto
+
     int escolha;
     if (indice == 0){
         printf("Nenhum registro encontrado!\n");
     } else {
         printf("1 - Ativados \n2 - Desativados \n3 - Todos \n");
         fflush(stdin);
-        printf("Digite opção desejada: ");
+        printf("Digite sua escolha: ");
         fflush(stdin);
         scanf("%d", &escolha);
         fflush(stdin);
+        system("cls");
         switch (escolha){
         case 1:
             for (int i = 0; i < indice; i++){
@@ -274,7 +277,7 @@ void alterar(int indice, int idbusca){
             printf("\n\n");
             printf("1 - Alterar Nome \n2 - Alterar Quantidade \n3 - Alterar Status \n4 - Alterar Lote \n5 - Alterar Todos \n");
             fflush(stdin);
-            printf("Digite a opção desejada: ");
+            printf("Digite sua escolha: ");
             fflush(stdin);
             scanf("%d", &escolha);
             fflush(stdin);
@@ -288,7 +291,7 @@ void alterar(int indice, int idbusca){
                 scanf("%d", &a[i].quantidade);
                 fflush(stdin);
             } else if (escolha == 3){
-                printf("Digite o novo status (0 ou 1): ");
+                printf("Digite o novo status (0 para DESATIVADO) ou (1 para ATIVADO): ");
                 scanf("%d", &a[i].status);
                 fflush(stdin);
             } else if (escolha == 4){
@@ -307,8 +310,9 @@ void alterar(int indice, int idbusca){
                 scanf("%d", &a[i].lote);
                 fflush(stdin);
             } else {
-                printf("Opção invalida!\n");
+                printf("Opcao invalida!\n");
             }
+            printf("Dados alterados com sucesso!\n");
             printf("Digite qualquer tecla para voltar ao menu...");
             getch();
             system("cls");
@@ -330,10 +334,10 @@ void excluir(int indice, int idbusca){
 }
 
 void criarConta(Usuario b[], int *count2){
-    printf("Digite um nome de usuario para sua conta: ");
+    printf("Digite um usuario: ");
     fflush(stdin);
     fgets(b[*count2].bancoUsuario, sizeof(b[*count2].bancoUsuario), stdin);
-    printf("Digite uma senha para sua conta: ");
+    printf("Digite uma senha: ");
     fflush(stdin);
     fgets(b[*count2].bancoSenha, sizeof(b[*count2].bancoSenha), stdin);
 

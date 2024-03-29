@@ -14,6 +14,7 @@ typedef struct{
 } Usuario;
 
 void abertura();
+void esperaLimpa();
 void painel();
 void cadastrar(int *indice);
 void listarTodos(int indice);
