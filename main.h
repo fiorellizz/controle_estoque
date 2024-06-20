@@ -13,8 +13,13 @@ typedef struct{
 
 } Usuario;
 
+typedef struct{
+
+    char bancoUsuario[50], bancoSenha[50];
+
+} DadosPrivados;
+
 void abertura();
-void esperaLimpa();
 void painel();
 void cadastrar(int *indice);
 void listarTodos(int indice);

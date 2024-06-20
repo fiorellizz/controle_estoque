@@ -30,8 +30,7 @@ int main(){
             entrarConta(b, count2, &login);
             if (login == 0){
                 printf("Dados invalidos!\nFavor inserir novamente!\n");
-                printf("Clique em qualquer tecla para voltar ao menu...");
-                esperaLimpa();
+                system("pause");
             } else {
                 system("cls");
             }
@@ -40,12 +39,10 @@ int main(){
             if (count2 < MAX){
                 criarConta(b, &count2);
                 printf("Conta criada com sucesso!\n");
-                printf("Clique em qualquer tecla para voltar ao menu...");
-                esperaLimpa();
+                system("pause");
             } else {
                 printf("Limite de contas atingidos!\n\n");
-                printf("Clique em qualquer tecla para voltar ao menu...");
-                esperaLimpa();
+                system("pause");
             }
         }
 
@@ -61,19 +58,16 @@ int main(){
             if (count < MAX){
                 cadastrar(&count);
                 printf("Cadastro realizado com sucesso!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                esperaLimpa();
+                system("pause");
             } else {
                 printf("Limite de cadastros atingidos!\n\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                esperaLimpa();
+                system("pause");
             }
             break;
 
         case 2:
             listarProdutos(count);
-            printf("Digite qualquer tecla para voltar ao menu...");
-            esperaLimpa();
+            system("pause");
             break;
 
         case 3:
@@ -111,12 +105,10 @@ int main(){
                 excluir(count, idbusca);
                 count--;
                 printf("\nExcluido com sucesso!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                esperaLimpa();
+                system("pause");
             } else {
                 printf("\nExclusao Cancelada!\n");
-                printf("Digite qualquer tecla para voltar ao menu...");
-                esperaLimpa();
+                system("pause");
             }
             break;
 
@@ -134,12 +126,6 @@ void abertura(){
     system("cls");
     printf("BEM VINDO AO PAINEL DE CONTROLE DE ESTOQUE!\n");
     printf("Para ter acesso ao painel ENTRE na sua conta ou CRIE uma!\n\n");
-}
-
-void esperaLimpa(){
-    
-    getch();
-    system("cls");
 }
 
 void painel(){
@@ -313,8 +299,6 @@ void alterar(int indice, int idbusca){
                 printf("Opcao invalida!\n");
             }
             printf("Dados alterados com sucesso!\n");
-            printf("Digite qualquer tecla para voltar ao menu...");
-            getch();
             system("cls");
             return;
         }
