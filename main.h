@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 #define MAX 3
 
 typedef struct{
@@ -19,6 +22,9 @@ typedef struct{
 
 } DadosPrivados;
 
+Produto a[MAX];
+Usuario b[MAX];
+
 void abertura();
 void painel();
 void cadastrar(int *indice);
@@ -29,3 +35,4 @@ void alterar(int indice, int idbusca);
 void excluir(int indice, int idbusca);
 void entrarConta(Usuario b[], int totalContas, int *login);
 void criarConta(Usuario b[], int *count2);
+#endif
