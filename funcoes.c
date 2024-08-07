@@ -6,7 +6,6 @@
 #include "main.h"
 
 void abertura(){
-
     system("cls");
     printf("BEM VINDO AO PAINEL DE CONTROLE DE ESTOQUE!\n");
     printf("Para ter acesso ao painel ENTRE na sua conta ou CRIE uma!\n\n");
